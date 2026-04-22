@@ -593,18 +593,46 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 
-.splash-content {
-.splash-content .main-title {
 /* Wall Memories - Polaroids */
 .polaroid {
+    background: #fff;
+    padding: 10px 10px 30px 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    max-width: 180px; /* Adjusted size */
+    transform: rotate(var(--rot));
+    cursor: pointer;
+}
+
+.polaroid img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+.polaroid p {
+    color: #444;
+    font-family: "Caveat", cursive;
+    font-size: 1rem;
+    text-align: center;
+    margin: 0;
+}
+
+.polaroid:hover {
+    transform: rotate(0deg) scale(1.1) translateY(-10px);
+    z-index: 10;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
 .polaroid:nth-child(1) { --rot: -3deg; }
 .polaroid:nth-child(2) { --rot: 2deg; }
 .polaroid:nth-child(3) { --rot: -1deg; }
 .polaroid:nth-child(4) { --rot: 4deg; }
 .polaroid:nth-child(5) { --rot: -2deg; }
-.polaroid img {
-.polaroid p {
-.polaroid:hover {
+
 
 
 /* Video Vault Styles */
