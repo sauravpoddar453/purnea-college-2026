@@ -31,7 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Nitish Kumar",
     "branch": "CSE",
-    "regNo": "22105131006"
+    "regNo": "22105131006",
+    "image": "nitish.jpg"
   },
   {
     "name": "Gautam Kumar",
@@ -146,7 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Ritupriya",
     "branch": "CSE",
-    "regNo": "23105131901"
+    "regNo": "23105131901",
+    "image": "ritu.jpg"
   },
   {
     "name": "Rohit Chakraverty",
@@ -271,7 +273,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Saurav Poddar",
     "branch": "CSE(AI)",
-    "regNo": "22151131026"
+    "regNo": "22151131026",
+    "image": "saurav.jpg"
   },
   {
     "name": "Praveen Kumar",
@@ -322,6 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
     let allStudents = studentData;
 
     function initYearbook() {
@@ -355,9 +359,14 @@ document.addEventListener('DOMContentLoaded', () => {
         students.forEach(student => {
             const card = document.createElement('div');
             card.className = 'student-card';
+            
+            const imageHtml = student.image 
+                ? `<img src="${student.image}" alt="${student.name}" class="profile-photo">`
+                : `<i class="fa-solid fa-user"></i>`;
+
             card.innerHTML = `
-                <div class="card-image">
-                    <i class="fa-solid fa-user"></i>
+                <div class="card-image ${student.image ? 'with-photo' : ''}">
+                    ${imageHtml}
                 </div>
                 <div class="card-info">
                     <h3 class="card-name">${student.name}</h3>

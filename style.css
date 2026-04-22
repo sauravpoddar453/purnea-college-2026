@@ -394,6 +394,22 @@ nav ul li a:hover, nav ul li a.active {
     justify-content: center;
     color: var(--glass-border);
     font-size: 4rem;
+    overflow: hidden;
+}
+
+.card-image.with-photo {
+    background: transparent;
+}
+
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.student-card:hover .profile-photo {
+    transform: scale(1.1);
 }
 
 .card-info {
