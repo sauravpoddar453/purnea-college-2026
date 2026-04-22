@@ -426,3 +426,43 @@ document.addEventListener('DOMContentLoaded', () => {
     renderNotes();
     initYearbook();
 });
+
+// YouTube Background Music Logic
+let player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player("youtube-player", {
+        height: "0",
+        width: "0",
+        videoId: "icaiYMmpG94",
+        playerVars: {
+            "autoplay": 0,
+            "controls": 0,
+            "loop": 1,
+            "playlist": "icaiYMmpG94"
+        },
+        events: {
+            "onReady": (event) => {
+                event.target.setVolume(20);
+            }
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const musicToggle = document.getElementById("music-toggle");
+    let isPlaying = false;
+
+    musicToggle.addEventListener("click", () => {
+        if (!player) return;
+        
+        if (!isPlaying) {
+            player.playVideo();
+            musicToggle.innerHTML = '<i class="fa-solid fa-pause"></i><span>Pause Music</span>';
+            isPlaying = true;
+        } else {
+            player.pauseVideo();
+            musicToggle.innerHTML = '<i class="fa-solid fa-play"></i><span>Play Music</span>';
+            isPlaying = false;
+        }
+    });
+});
