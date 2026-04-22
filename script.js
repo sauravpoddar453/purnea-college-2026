@@ -436,3 +436,40 @@ document.addEventListener('DOMContentLoaded', () => {
     initYearbook();
 });
 
+// YouTube Background Music & Splash Logic
+let player;
+function onYouTubeIframeAPIReady() {
+    player = new YT.Player("youtube-player", {
+        height: "0",
+        width: "0",
+        videoId: "icaiYMmpG94",
+        playerVars: {
+            "autoplay": 0,
+            "controls": 0,
+            "loop": 1,
+            "playlist": "icaiYMmpG94",
+            "mute": 1
+        },
+        events: {
+            "onReady": (event) => {
+                event.target.setVolume(10);
+            }
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const splash = document.getElementById('splash-screen');
+    const enterBtn = document.getElementById('enter-btn');
+
+    if (enterBtn) {
+        enterBtn.addEventListener('click', () => {
+            if (player && player.playVideo) {
+                player.unMute();
+                player.playVideo();
+            }
+            splash.classList.add('fade-out');
+        });
+    }
+});
+
