@@ -54,7 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Archana Roy",
     "branch": "CSE",
-    "regNo": "22105131010"
+    "regNo": "22105131010",
+    "image": "archana.jpeg"
   },
   {
     "name": "Vishwajit Singh",
@@ -113,9 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
     "regNo": "22105131022"
   },
   {
-    "name": "Sunidhi Singh",
+    "name": "Sunidhi Kumar",
     "branch": "CSE",
-    "regNo": "22105131023"
+    "regNo": "22105131023",
+    "image": "sunidhi.jpeg"
   },
   {
     "name": "Ankita Kumari",
@@ -136,7 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Prachi Raj",
     "branch": "CSE",
-    "regNo": "22105131027"
+    "regNo": "22105131027",
+    "image": "prachi.jpeg"
   },
   {
     "name": "Vivek Kumar",
@@ -174,7 +177,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Arti Kumari",
     "branch": "CSE(AI)",
-    "regNo": "22151131002"
+    "regNo": "22151131002",
+    "image": "arti.jpeg"
   },
   {
     "name": "Jyoti Kumari",
@@ -322,7 +326,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Priya Kumari",
     "branch": "CSE(AI)",
-    "regNo": "23151131902"
+    "regNo": "23151131902",
+    "image": "priya.jpeg"
   },
   {
     "name": "Ankesh Kumar",
