@@ -431,6 +431,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // 6. Video Hover Sound Logic
+    const videos = document.querySelectorAll('.video-item video');
+    videos.forEach(v => {
+        v.addEventListener('mouseenter', () => { v.muted = false; });
+        v.addEventListener('mouseleave', () => { v.muted = true; });
+    });
+
     // 5. Initial Call
     renderNotes();
     initYearbook();
