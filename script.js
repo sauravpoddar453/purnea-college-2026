@@ -443,72 +443,35 @@ document.addEventListener('DOMContentLoaded', () => {
     initYearbook();
 });
 
-// Music UI & Interaction Logic
-window.updateMusicUI = function() {
-    const musicToggle = document.getElementById('music-toggle');
-    if (!musicToggle) return;
-    const musicIcon = musicToggle.querySelector('i');
-    if (isPlaying) {
-        musicIcon.className = 'fa-solid fa-pause';
-        musicToggle.classList.add('playing');
-    } else {
-        musicIcon.className = 'fa-solid fa-music';
-        musicToggle.classList.remove('playing');
-    }
-};
-
+// Direct Music Ignition Logic
 function igniteMusic() {
-    if (musicStarted) return;
-    
-    // Give the API a tiny moment if called too early
-    if (!player || typeof player.unMute !== 'function') {
-        setTimeout(igniteMusic, 100);
-        return;
-    }
+    if (musicStarted || !player) return;
     
     try {
-        player.unMute();
-        player.playVideo();
-        isPlaying = true;
-        musicStarted = true;
-        window.updateMusicUI();
-        console.log("Music Ignited");
+        if (typeof player.unMute === 'function') {
+            player.unMute();
+            player.playVideo();
+            musicStarted = true;
+            console.log("Music Engine: Force Started");
+        } else {
+            setTimeout(igniteMusic, 100);
+        }
     } catch (e) {
-        console.error("Ignition failed:", e);
+        console.warn("Retrying ignition...");
+        setTimeout(igniteMusic, 200);
     }
-    
-    ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
-        document.removeEventListener(evt, igniteMusic);
-    });
 }
 
-
 document.addEventListener('DOMContentLoaded', () => {
-    const musicToggle = document.getElementById('music-toggle');
-
-    if (musicToggle) {
-        musicToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (!musicStarted) {
-                igniteMusic();
-            } else {
-                if (isPlaying) {
-                    player.pauseVideo();
-                    isPlaying = false;
-                } else {
-                    player.playVideo();
-                    isPlaying = true;
-                }
-                window.updateMusicUI();
-            }
-        });
-    }
-
-    // Attempt to start music on first ever interaction
-    ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+    // Attempt to ignite on ANY initial interaction
+    ['click', 'mousedown', 'touchstart', 'scroll', 'keydown', 'mousemove'].forEach(evt => {
         document.addEventListener(evt, igniteMusic, { once: true });
     });
+    
+    // Also try a direct attempt after a small delay (works if MEI is high)
+    setTimeout(igniteMusic, 1000);
 });
+
 
 
 
