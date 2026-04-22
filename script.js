@@ -436,39 +436,3 @@ document.addEventListener('DOMContentLoaded', () => {
     initYearbook();
 });
 
-// YouTube Background Music Logic
-let player;
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player("youtube-player", {
-        height: "0",
-        width: "0",
-        videoId: "icaiYMmpG94",
-        playerVars: {
-            "autoplay": 1,
-            "controls": 0,
-            "loop": 1,
-            "playlist": "icaiYMmpG94"
-        },
-        events: {
-            "onReady": (event) => {
-                event.target.setVolume(10);
-                event.target.playVideo(); // Attempt autoplay
-            }
-        }
-    });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    let isStarted = false;
-
-    // Background trigger: start music on the very first click anywhere on the page
-    const startMusicInvisibly = () => {
-        if (player && player.playVideo && !isStarted) {
-            player.playVideo();
-            isStarted = true;
-            document.removeEventListener('click', startMusicInvisibly);
-        }
-    };
-
-    document.addEventListener('click', startMusicInvisibly);
-});
