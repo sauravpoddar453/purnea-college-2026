@@ -297,6 +297,27 @@ nav ul li a:hover, nav ul li a.active {
 
 .timeline-item.right::after { left: -10px; }
 
+    text-align: center;
+    background: var(--glass-bg);
+    backdrop-filter: blur(25px);
+    padding: 80px 60px;
+    border-radius: 40px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    max-width: 800px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+    font-size: 4.5rem;
+    line-height: 1.2;
+    margin: 10px 0;
+    padding-top: 20px; /* Space to prevent cutoff */
+}
+
 .timeline-content {
     background: var(--glass-bg);
     padding: 30px;
@@ -412,7 +433,6 @@ nav ul li a:hover, nav ul li a.active {
     transform: scale(1.1);
 }
 
-/* Wall Memories - Polaroids */
 .wall-memories {
     display: flex;
     flex-wrap: wrap;
@@ -422,7 +442,6 @@ nav ul li a:hover, nav ul li a.active {
     padding: 20px;
 }
 
-.polaroid {
     background: #fff;
     padding: 10px 10px 30px 10px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
@@ -432,13 +451,7 @@ nav ul li a:hover, nav ul li a.active {
     transform: rotate(var(--rot));
 }
 
-.polaroid:nth-child(1) { --rot: -3deg; }
-.polaroid:nth-child(2) { --rot: 2deg; }
-.polaroid:nth-child(3) { --rot: -1deg; }
-.polaroid:nth-child(4) { --rot: 4deg; }
-.polaroid:nth-child(5) { --rot: -2deg; }
 
-.polaroid img {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
@@ -446,7 +459,6 @@ nav ul li a:hover, nav ul li a.active {
     margin-bottom: 10px;
 }
 
-.polaroid p {
     color: #444;
     font-family: "Caveat", cursive;
     font-size: 1.1rem;
@@ -454,7 +466,6 @@ nav ul li a:hover, nav ul li a.active {
     margin: 0;
 }
 
-.polaroid:hover {
     transform: rotate(0deg) scale(1.1) translateY(-10px);
     z-index: 10;
     box-shadow: 0 20px 40px rgba(0,0,0,0.5);
@@ -581,3 +592,16 @@ nav ul li a:hover, nav ul li a.active {
     .timeline-item::after { left: 21px; }
 }
 
+
+.splash-content {
+.splash-content .main-title {
+/* Wall Memories - Polaroids */
+.polaroid {
+.polaroid:nth-child(1) { --rot: -3deg; }
+.polaroid:nth-child(2) { --rot: 2deg; }
+.polaroid:nth-child(3) { --rot: -1deg; }
+.polaroid:nth-child(4) { --rot: 4deg; }
+.polaroid:nth-child(5) { --rot: -2deg; }
+.polaroid img {
+.polaroid p {
+.polaroid:hover {
