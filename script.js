@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Om Kamal",
     "branch": "CSE",
-    "regNo": "22105131001"
+    "regNo": "22105131001",
+    "image": "om.jpg"
   },
   {
     "name": "Ankit Kumar",
@@ -155,7 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Rohit Chakraverty",
     "branch": "CSE",
-    "regNo": "23105131902"
+    "regNo": "23105131902",
+    "image": "rohit.jpg"
   },
   {
     "name": "Rashmi Pacheriya",
@@ -324,6 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
     "regNo": "23151131903"
   }
 ];
+
 
 
 
