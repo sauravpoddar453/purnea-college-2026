@@ -441,48 +441,28 @@ function onYouTubeIframeAPIReady() {
             "autoplay": 1,
             "controls": 0,
             "loop": 1,
-            "playlist": "icaiYMmpG94",
-            "mute": 1 // Start muted to allow autoplay
+            "playlist": "icaiYMmpG94"
         },
         events: {
             "onReady": (event) => {
-                event.target.setVolume(10); // Even lower volume (10%)
+                event.target.setVolume(10);
+                event.target.playVideo(); // Attempt autoplay
             }
         }
     });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const musicToggle = document.getElementById("music-toggle");
-    let isPlaying = false;
+    let isStarted = false;
 
-    // Helper to start music on first interaction
-    const startMusic = () => {
-        if (player && player.playVideo && !isPlaying) {
-            player.unMute();
+    // Background trigger: start music on the very first click anywhere on the page
+    const startMusicInvisibly = () => {
+        if (player && player.playVideo && !isStarted) {
             player.playVideo();
-            musicToggle.innerHTML = '<i class="fa-solid fa-pause"></i><span>Pause Music</span>';
-            isPlaying = true;
-            document.removeEventListener('click', startMusic);
+            isStarted = true;
+            document.removeEventListener('click', startMusicInvisibly);
         }
     };
 
-    // Trigger music on the first click anywhere
-    document.addEventListener('click', startMusic);
-
-    musicToggle.addEventListener("click", (e) => {
-        e.stopPropagation(); // Prevent startMusic from firing again
-        if (!player) return;
-        
-        if (!isPlaying) {
-            player.unMute();
-            player.playVideo();
-            musicToggle.innerHTML = '<i class="fa-solid fa-pause"></i><span>Pause Music</span>';
-            isPlaying = true;
-        } else {
-            player.pauseVideo();
-            musicToggle.innerHTML = '<i class="fa-solid fa-play"></i><span>Play Music</span>';
-            isPlaying = false;
-        }
-    });
+    document.addEventListener('click', startMusicInvisibly);
 });

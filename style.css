@@ -533,33 +533,3 @@ nav ul li a:hover, nav ul li a.active {
     .timeline-item::after { left: 21px; }
 }
 
-/* Music Controls */
-.music-controls {
-    position: fixed;
-    bottom: 30px;
-    left: 30px;
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    padding: 10px 20px;
-    border-radius: 50px;
-    border: 1px solid var(--glass-border);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    z-index: 2000;
-    transition: all 0.3s ease;
-}
-.music-controls:hover {
-    background: var(--glass-border);
-    transform: scale(1.05);
-}
-.music-controls i {
-    color: var(--accent-primary);
-}
-.music-controls span {
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
