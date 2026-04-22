@@ -130,7 +130,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Manish Kumar",
     "branch": "CSE",
-    "regNo": "22105131026"
+    "regNo": "22105131026",
+    "image": "manish.jpeg"
   },
   {
     "name": "Prachi Raj",
