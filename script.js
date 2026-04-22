@@ -245,7 +245,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Om Shankar Kumar",
     "branch": "CSE(AI)",
-    "regNo": "22151131019"
+    "regNo": "22151131019",
+    "image": "om_shankar.jpg"
   },
   {
     "name": "Rishav Kumar Singh",
