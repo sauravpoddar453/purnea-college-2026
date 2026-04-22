@@ -341,13 +341,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let allStudents = studentData;
 
-    function initYearbook() {
-        const cseStudents = allStudents.filter(s => s.branch === 'CSE');
-        const aiStudents = allStudents.filter(s => s.branch === 'CSE(AI)');
+    function initYearbook(filter = '') {
+        const normalizedFilter = filter.toLowerCase();
+        const filteredStudents = studentData.filter(s => 
+            s.name.toLowerCase().includes(normalizedFilter) || 
+            s.regNo.toLowerCase().includes(normalizedFilter)
+        );
+
+        const cseStudents = filteredStudents.filter(s => s.branch === 'CSE');
+        const aiStudents = filteredStudents.filter(s => s.branch === 'CSE(AI)');
         
         renderYearbook(cseStudents, 'cse-grid');
         renderYearbook(aiStudents, 'ai-grid');
     }
+
+    // Search Logic
+    const searchInput = document.getElementById('yearbookSearch');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            initYearbook(e.target.value);
+        });
+    }
+
 
     // 2. Render Functions
     const notesContainer = document.getElementById('notes-container');

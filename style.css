@@ -669,11 +669,55 @@ nav ul li a:hover, nav ul li a.active {
     box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
-.polaroid:nth-child(1) { --rot: -3deg; }
-.polaroid:nth-child(2) { --rot: 2deg; }
-.polaroid:nth-child(3) { --rot: -1deg; }
-.polaroid:nth-child(4) { --rot: 4deg; }
 .polaroid:nth-child(5) { --rot: -2deg; }
+
+/* Yearbook Search */
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    width: 100%;
+}
+
+.search-box {
+    position: relative;
+    max-width: 600px;
+    width: 100%;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    padding: 5px 25px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.search-box:focus-within {
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 20px rgba(138, 79, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.search-box i {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-right: 15px;
+}
+
+.search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-main);
+    padding: 12px 0;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.search-box input::placeholder {
+    color: var(--text-muted);
+}
 
 
 
