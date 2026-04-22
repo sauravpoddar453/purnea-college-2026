@@ -167,7 +167,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Abhishek Kumar Choudhary",
     "branch": "CSE(AI)",
-    "regNo": "22151131001"
+    "regNo": "22151131001",
+    "image": "abhishek.jpg"
   },
   {
     "name": "Arti Kumari",
@@ -227,7 +228,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Aseem Raj",
     "branch": "CSE(AI)",
-    "regNo": "22151131015"
+    "regNo": "22151131015",
+    "image": "aseem.jpg"
   },
   {
     "name": "Aniket Kumar Singh",
@@ -326,6 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
     "regNo": "23151131903"
   }
 ];
+
 
 
 
