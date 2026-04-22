@@ -1,0 +1,9 @@
+scratch/
+.gemini/
+*.png
+*.jpg
+*.webp
+!hero.png
+!fest.png
+!library.png
+!aurora.png
