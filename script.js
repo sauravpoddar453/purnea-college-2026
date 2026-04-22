@@ -438,14 +438,15 @@ function onYouTubeIframeAPIReady() {
         width: "0",
         videoId: "icaiYMmpG94",
         playerVars: {
-            "autoplay": 0,
+            "autoplay": 1,
             "controls": 0,
             "loop": 1,
-            "playlist": "icaiYMmpG94"
+            "playlist": "icaiYMmpG94",
+            "mute": 1 // Start muted to allow autoplay
         },
         events: {
             "onReady": (event) => {
-                event.target.setVolume(20);
+                event.target.setVolume(10); // Even lower volume (10%)
             }
         }
     });
@@ -455,10 +456,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const musicToggle = document.getElementById("music-toggle");
     let isPlaying = false;
 
-    musicToggle.addEventListener("click", () => {
+    // Helper to start music on first interaction
+    const startMusic = () => {
+        if (player && player.playVideo && !isPlaying) {
+            player.unMute();
+            player.playVideo();
+            musicToggle.innerHTML = '<i class="fa-solid fa-pause"></i><span>Pause Music</span>';
+            isPlaying = true;
+            document.removeEventListener('click', startMusic);
+        }
+    };
+
+    // Trigger music on the first click anywhere
+    document.addEventListener('click', startMusic);
+
+    musicToggle.addEventListener("click", (e) => {
+        e.stopPropagation(); // Prevent startMusic from firing again
         if (!player) return;
         
         if (!isPlaying) {
+            player.unMute();
             player.playVideo();
             musicToggle.innerHTML = '<i class="fa-solid fa-pause"></i><span>Pause Music</span>';
             isPlaying = true;
