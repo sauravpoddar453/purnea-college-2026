@@ -37,7 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Gautam Kumar",
     "branch": "CSE",
-    "regNo": "22105131007"
+    "regNo": "22105131007",
+    "image": "gautam.jpg"
   },
   {
     "name": "Prashant Kumar",
@@ -322,6 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
     "regNo": "23151131903"
   }
 ];
+
 
 
 
