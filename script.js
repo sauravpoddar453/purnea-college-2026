@@ -443,40 +443,73 @@ document.addEventListener('DOMContentLoaded', () => {
     initYearbook();
 });
 
-// YouTube Background Music & Splash Logic
-let player;
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player("youtube-player", {
-        height: "0",
-        width: "0",
-        videoId: "icaiYMmpG94",
-        playerVars: {
-            "autoplay": 0,
-            "controls": 0,
-            "loop": 1,
-            "playlist": "icaiYMmpG94",
-            "mute": 1
-        },
-        events: {
-            "onReady": (event) => {
-                event.target.setVolume(10);
-            }
-        }
+// Music UI & Interaction Logic
+window.updateMusicUI = function() {
+    const musicToggle = document.getElementById('music-toggle');
+    if (!musicToggle) return;
+    const musicIcon = musicToggle.querySelector('i');
+    if (isPlaying) {
+        musicIcon.className = 'fa-solid fa-pause';
+        musicToggle.classList.add('playing');
+    } else {
+        musicIcon.className = 'fa-solid fa-music';
+        musicToggle.classList.remove('playing');
+    }
+};
+
+function igniteMusic() {
+    if (musicStarted) return;
+    
+    // Give the API a tiny moment if called too early
+    if (!player || typeof player.unMute !== 'function') {
+        setTimeout(igniteMusic, 100);
+        return;
+    }
+    
+    try {
+        player.unMute();
+        player.playVideo();
+        isPlaying = true;
+        musicStarted = true;
+        window.updateMusicUI();
+        console.log("Music Ignited");
+    } catch (e) {
+        console.error("Ignition failed:", e);
+    }
+    
+    ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+        document.removeEventListener(evt, igniteMusic);
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    const splash = document.getElementById('splash-screen');
-    const enterBtn = document.getElementById('enter-btn');
 
-    if (enterBtn) {
-        enterBtn.addEventListener('click', () => {
-            if (player && player.playVideo) {
-                player.unMute();
-                player.playVideo();
+document.addEventListener('DOMContentLoaded', () => {
+    const musicToggle = document.getElementById('music-toggle');
+
+    if (musicToggle) {
+        musicToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!musicStarted) {
+                igniteMusic();
+            } else {
+                if (isPlaying) {
+                    player.pauseVideo();
+                    isPlaying = false;
+                } else {
+                    player.playVideo();
+                    isPlaying = true;
+                }
+                window.updateMusicUI();
             }
-            splash.classList.add('fade-out');
         });
     }
+
+    // Attempt to start music on first ever interaction
+    ['click', 'touchstart', 'scroll', 'keydown'].forEach(evt => {
+        document.addEventListener(evt, igniteMusic, { once: true });
+    });
 });
+
+
+
 

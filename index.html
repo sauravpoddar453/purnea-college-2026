@@ -14,22 +14,46 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- Splash Screen / Music Trigger -->
-    <div id="splash-screen">
-        <div class="splash-content">
-            <h2 class="pre-title">PURNEA COLLEGE OF ENGINEERING</h2>
-            <h1 class="main-title">Batch 2022 - 2026</h1>
-            <p class="splash-subtitle">Four years, a thousand memories, one wall.</p>
-            <button class="btn primary" id="enter-btn">Open Memory Vault</button>
-        </div>
-    </div>
+    <script>
+        // Pre-define player global
+        let player;
+        let isPlaying = false;
+        let musicStarted = false;
 
-    <!-- Hidden Player -->
-    <div id="youtube-player" style="display:none;"></div>
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player("youtube-player", {
+                height: "0",
+                width: "0",
+                videoId: "icaiYMmpG94",
+                playerVars: {
+                    "autoplay": 1,
+                    "controls": 0,
+                    "loop": 1,
+                    "playlist": "icaiYMmpG94",
+                    "mute": 1,
+                    "enablejsapi": 1,
+                    "origin": window.location.origin
+                },
+                events: {
+                    "onReady": (event) => {
+                        event.target.setVolume(25);
+                        event.target.playVideo();
+                        console.log("Music Engine Ready");
+                    },
+                    "onStateChange": (event) => {
+                        if (event.data === YT.PlayerState.PLAYING) {
+                            isPlaying = true;
+                            if (window.updateMusicUI) window.updateMusicUI();
+                        }
+                    }
+                }
+            });
+        }
+    </script>
     <script src="https://www.youtube.com/iframe_api"></script>
+
+    <!-- Hidden audio container -->
+    <div id="youtube-player" style="position:fixed; top:-100px; left:-100px; width:1px; height:1px; opacity:0; pointer-events:none;"></div>
 
     <header class="navbar">
         <div class="logo">
@@ -45,7 +69,12 @@
                 <li><a href="#media">Media Vault</a></li>
             </ul>
         </nav>
-        <div class="batch-tag">Class of 2026</div>
+        <div class="nav-extra">
+            <button id="music-toggle" class="music-btn" title="Toggle Music">
+                <i class="fa-solid fa-music"></i>
+            </button>
+            <div class="batch-tag">Class of 2026</div>
+        </div>
     </header>
 
     <main>
