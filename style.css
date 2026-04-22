@@ -586,17 +586,53 @@ nav ul li a:hover, nav ul li a.active {
     color: var(--accent-primary);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .main-title { font-size: 3rem; }
-    .hero-actions { flex-direction: column; }
-    .navbar { padding: 20px; }
+/* Responsive Adjustments */
+@media (max-width: 780px) {
+    .main-title { font-size: 2.8rem; }
+    .hero-description { font-size: 1.1rem; }
+    .hero-actions { 
+        flex-direction: column; 
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    .hero-actions .btn { width: 100%; }
+    
+    .navbar { padding: 15px 20px; }
     nav { display: none; }
-    .timeline::after { left: 31px; }
-    .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+    
+    .section-title { font-size: 2.2rem; }
+    
+    .timeline::after { left: 20px; }
+    .timeline-item { width: 100%; padding-left: 50px; padding-right: 10px; }
     .timeline-item.right { left: 0; }
-    .timeline-item::after { left: 21px; }
+    .timeline-item::after { left: 10px; }
+    
+    .yearbook-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 20px;
+    }
+    
+    .video-gallery {
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+    }
+    
+    .video-item {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+    .polaroid {
+        max-width: 150px;
+    }
 }
+
+@media (max-width: 480px) {
+    .main-title { font-size: 2.2rem; }
+    .pre-title { font-size: 0.8rem; letter-spacing: 3px; }
+}
+
 
 
 /* Wall Memories - Polaroids */
