@@ -336,6 +336,44 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 ];
 
+const facultyData = [
+  {
+    "name": "Prof. Raju Kumar",
+    "designation": "Assistant Professor (H.O.D.)",
+    "image": "https://www.pcepurnia.org/wp-content/uploads/2025/11/file_691afe427fd86.jpg"
+  },
+  {
+    "name": "Prof. Supriya Kumari",
+    "designation": "Assistant Professor",
+    "image": "https://www.pcepurnia.org/wp-content/uploads/2022/12/file_63a70fba9378f.jpg"
+  },
+  {
+    "name": "Prof. Tapan Kumar",
+    "designation": "Assistant Professor",
+    "image": "https://www.pcepurnia.org/wp-content/uploads/2024/04/file_660fae418b518.jpg"
+  },
+  {
+    "name": "Prof. Rahat Yezdani",
+    "designation": "Assistant Professor",
+    "image": "https://www.pcepurnia.org/wp-content/uploads/2024/05/file_663c96c759378-scaled.jpg"
+  },
+  {
+    "name": "Prof. Ravi Kumar",
+    "designation": "Assistant Professor",
+    "image": ""
+  },
+  {
+    "name": "Prof. Shubhlaxmi",
+    "designation": "Assistant Professor",
+    "image": ""
+  },
+  {
+    "name": "Dr. Priti Kumari",
+    "designation": "Assistant Professor",
+    "image": ""
+  }
+];
+
 
 
 
@@ -358,6 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         renderYearbook(cseStudents, 'cse-grid');
         renderYearbook(aiStudents, 'ai-grid');
+        renderFaculty();
     }
 
     // Search Logic
@@ -405,6 +444,34 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3 class="card-name">${student.name}</h3>
                     <p class="card-branch">${student.branch}</p>
                     <p class="card-quote">Reg No: ${student.regNo}</p>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function renderFaculty() {
+        const grid = document.getElementById('faculty-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        facultyData.forEach(faculty => {
+            const card = document.createElement('div');
+            card.className = 'faculty-card';
+            
+            const isHOD = faculty.designation.includes('(H.O.D.)');
+            const imageHtml = faculty.image 
+                ? `<img src="${faculty.image}" alt="${faculty.name}" class="profile-photo">`
+                : `<div class="placeholder-icon"><i class="fa-solid fa-user-tie"></i></div>`;
+
+            card.innerHTML = `
+                <div class="card-image ${faculty.image ? 'with-photo' : ''} ${isHOD ? 'hod-border' : ''}">
+                    ${imageHtml}
+                    ${isHOD ? '<span class="hod-badge">H.O.D.</span>' : ''}
+                </div>
+                <div class="card-info">
+                    <h3 class="card-name">${faculty.name}</h3>
+                    <p class="card-designation">${faculty.designation}</p>
+                    <div class="card-department">Computer Science & Engineering</div>
                 </div>
             `;
             grid.appendChild(card);
