@@ -1,11 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Initial Mock Data
-    const notesData = [
-        { text: "Building the legacy of Purnea College of Engineering together!", author: "Saurav Poddar", color: "pink", rotate: "-2deg" },
-        { text: "Grateful for the journey and the friendships made here.", author: "Uday Kumar", color: "yellow", rotate: "3deg" },
-        { text: "Every reflection here tells a story of our growth.", author: "Ritupriya", color: "blue", rotate: "-3deg" },
-        { text: "Saraswati Puja 2025 was a highlight of our college years!", author: "Ankit Kumar", color: "green", rotate: "2deg" }
-    ];
+    const API_URL = 'http://localhost:5000/api/notes';
+    let notesData = [];
+
+    async function fetchNotes() {
+        try {
+            const response = await fetch(API_URL);
+            notesData = await response.json();
+            renderNotes();
+        } catch (err) {
+            console.error("Failed to fetch reflections:", err);
+            // Fallback to local data if server is down
+            notesData = [
+                { text: "Building the legacy of Purnea College of Engineering together!", author: "Saurav Poddar", color: "pink", rotate: "-2deg" },
+                { text: "Grateful for the journey and the friendships made here.", author: "Uday Kumar", color: "yellow", rotate: "3deg" }
+            ];
+            renderNotes();
+        }
+    }
 
     const studentData = [
   {
@@ -513,9 +525,28 @@ const facultyData = [
                 const randomColor = colors[Math.floor(Math.random() * colors.length)];
                 const randomRotate = (Math.random() * 10 - 5).toFixed(1) + 'deg';
                 
-                notesData.unshift({ text, author, color: randomColor, rotate: randomRotate });
-                renderNotes();
-                closeModal();
+                const newNote = { text, author, color: randomColor, rotate: randomRotate };
+
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(newNote)
+                    });
+                    
+                    if (response.ok) {
+                        const savedNote = await response.json();
+                        notesData.unshift(savedNote);
+                        renderNotes();
+                        closeModal();
+                    }
+                } catch (err) {
+                    console.error("Failed to save reflection:", err);
+                    // Local fallback
+                    notesData.unshift(newNote);
+                    renderNotes();
+                    closeModal();
+                }
                 
                 // Scroll to the wall to see the new note
                 const wallSection = document.getElementById('wall');
@@ -565,7 +596,7 @@ const facultyData = [
     });
 
     // 5. Initial Call
-    renderNotes();
+    fetchNotes();
     initYearbook();
 });
 
