@@ -365,7 +365,7 @@ const facultyData = [
   {
     "name": "Prof. Shubhlaxmi",
     "designation": "Assistant Professor",
-    "image": ""
+    "image": "Prof. Shubhlaxmi.jpeg"
   },
   {
     "name": "Dr. Priti Kumari",
