@@ -478,20 +478,57 @@ const facultyData = [
         });
     }
 
-    // 3. Add Note Logic
+    // 3. Add Note Logic (Modern Modal)
     const addNoteBtn = document.getElementById('add-note-btn');
-    addNoteBtn.addEventListener('click', () => {
-        const text = prompt("Enter your reflection:");
-        const author = prompt("Enter your name:");
-        
-        if (text && author) {
-            const colors = ['pink', 'blue', 'yellow', 'green'];
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            const randomRotate = (Math.random() * 10 - 5).toFixed(1) + 'deg';
+    const modal = document.getElementById('reflection-modal');
+    const closeBtn = document.querySelector('.close-modal');
+    const cancelBtn = document.getElementById('cancel-reflection');
+    const submitBtn = document.getElementById('submit-reflection');
+    const reflectionText = document.getElementById('reflection-text');
+    const reflectionAuthor = document.getElementById('reflection-author');
+
+    const openModal = () => {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        reflectionText.value = '';
+        reflectionAuthor.value = '';
+    };
+
+    if (addNoteBtn) addNoteBtn.addEventListener('click', openModal);
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
+
+    if (submitBtn) {
+        submitBtn.addEventListener('click', () => {
+            const text = reflectionText.value.trim();
+            const author = reflectionAuthor.value.trim();
             
-            notesData.unshift({ text, author, color: randomColor, rotate: randomRotate });
-            renderNotes();
-        }
+            if (text && author) {
+                const colors = ['pink', 'blue', 'yellow', 'green'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                const randomRotate = (Math.random() * 10 - 5).toFixed(1) + 'deg';
+                
+                notesData.unshift({ text, author, color: randomColor, rotate: randomRotate });
+                renderNotes();
+                closeModal();
+                
+                // Scroll to the wall to see the new note
+                const wallSection = document.getElementById('wall');
+                if (wallSection) wallSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert("Please fill in both fields to share your reflection.");
+            }
+        });
+    }
+
+    // Close modal on click outside
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
     });
 
     // 4. Scroll Effects
