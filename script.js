@@ -532,7 +532,40 @@ const facultyData = [
     initYearbook();
 });
 
-// Direct Music Ignition Logic
+// ---------------------------------------------------------
+// BACKGROUND MUSIC CONTROLLER (YouTube API Integration)
+// ---------------------------------------------------------
+
+window.updateMusicUI = function() {
+    const btn = document.getElementById('music-toggle');
+    if (!btn) return;
+    const icon = btn.querySelector('i');
+    
+    if (isPlaying) {
+        btn.classList.add('playing');
+        icon.className = 'fas fa-pause';
+    } else {
+        btn.classList.remove('playing');
+        icon.className = 'fas fa-play';
+    }
+};
+
+function toggleMusic() {
+    if (!player || typeof player.getPlayerState !== 'function') return;
+    
+    const state = player.getPlayerState();
+    if (state === 1) { // Playing
+        player.pauseVideo();
+        isPlaying = false;
+    } else {
+        player.playVideo();
+        player.unMute();
+        isPlaying = true;
+        musicStarted = true;
+    }
+    window.updateMusicUI();
+}
+
 function igniteMusic() {
     if (musicStarted || !player) return;
     
@@ -541,24 +574,36 @@ function igniteMusic() {
             player.unMute();
             player.playVideo();
             musicStarted = true;
-            console.log("Music Engine: Force Started");
+            isPlaying = true;
+            window.updateMusicUI();
+            console.log("Music Engine: Activated");
         } else {
             setTimeout(igniteMusic, 100);
         }
     } catch (e) {
-        console.warn("Retrying ignition...");
         setTimeout(igniteMusic, 200);
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Attempt to ignite on ANY initial interaction
-    ['click', 'mousedown', 'touchstart', 'scroll', 'keydown', 'mousemove'].forEach(evt => {
-        document.addEventListener(evt, igniteMusic, { once: true });
+    const musicBtn = document.getElementById('music-toggle');
+    if (musicBtn) {
+        musicBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMusic();
+        });
+    }
+
+    // Attempt to ignite on initial interaction (Browser Autoplay Requirement)
+    const interactionEvents = ['click', 'mousedown', 'touchstart', 'keydown'];
+    interactionEvents.forEach(evt => {
+        document.addEventListener(evt, () => {
+            if (!musicStarted) igniteMusic();
+        }, { once: true });
     });
     
-    // Also try a direct attempt after a small delay (works if MEI is high)
-    setTimeout(igniteMusic, 1000);
+    // Initial UI Sync
+    setTimeout(window.updateMusicUI, 1000);
 });
 
 
