@@ -112,6 +112,16 @@ h1, h2, h3 {
     border-color: var(--text-main);
 }
 
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-main);
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 2001;
+}
+
 /* Navbar */
 .navbar {
     position: fixed;
@@ -414,6 +424,7 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 .card-image {
+    position: relative;
     height: 300px;
     background: #1a1a20;
     display: flex;
@@ -603,7 +614,41 @@ nav ul li a:hover, nav ul li a.active {
     .hero-actions .btn { width: 100%; }
     
     .navbar { padding: 15px 20px; }
-    nav { display: none; }
+    
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(10, 10, 12, 0.95);
+        backdrop-filter: blur(20px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transition: right 0.4s cubic-bezier(0.77,0,0.175,1);
+        z-index: 2000;
+        border-left: 1px solid var(--glass-border);
+    }
+
+    nav.active {
+        right: 0;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+
+    nav ul li a {
+        font-size: 1.2rem;
+    }
     
     .section-title { font-size: 2.2rem; }
     
@@ -1032,4 +1077,25 @@ nav ul li a:hover, nav ul li a.active {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* CR Special Styles */
+.cr-border {
+    border-bottom: 3px solid var(--accent-secondary) !important;
+}
+
+.cr-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--accent-secondary);
+    color: #fff;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(255, 79, 167, 0.4);
+    z-index: 2;
 }

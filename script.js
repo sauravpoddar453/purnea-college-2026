@@ -67,7 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
     "name": "Archana Roy",
     "branch": "CSE",
     "regNo": "22105131010",
-    "image": "archana.jpeg"
+    "image": "archana.jpeg",
+    "isCR": true
   },
   {
     "name": "Vishwajit Singh",
@@ -87,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Reshav Raj",
     "branch": "CSE",
-    "regNo": "22105131014"
+    "regNo": "22105131014",
+    "isCR": true
   },
   {
     "name": "Vishal Kumar Rajak",
@@ -262,7 +264,8 @@ document.addEventListener('DOMContentLoaded', () => {
     "name": "Om Shankar Kumar",
     "branch": "CSE(AI)",
     "regNo": "22151131019",
-    "image": "om_shankar.jpg"
+    "image": "om_shankar.jpg",
+    "isCR": true
   },
   {
     "name": "Rishav Kumar Singh",
@@ -287,7 +290,9 @@ document.addEventListener('DOMContentLoaded', () => {
   {
     "name": "Arpita Kumari",
     "branch": "CSE(AI)",
-    "regNo": "22151131024"
+    "regNo": "22151131024",
+    "isCR": true,
+    "image": "arpita.jpeg"
   },
   {
     "name": "Aditi Kumari",
@@ -449,8 +454,9 @@ const facultyData = [
                 : `<i class="fa-solid fa-user"></i>`;
 
             card.innerHTML = `
-                <div class="card-image ${student.image ? 'with-photo' : ''}">
+                <div class="card-image ${student.image ? 'with-photo' : ''} ${student.isCR ? 'cr-border' : ''}">
                     ${imageHtml}
+                    ${student.isCR ? '<span class="cr-badge">C.R.</span>' : ''}
                 </div>
                 <div class="card-info">
                     <h3 class="card-name">${student.name}</h3>
@@ -516,7 +522,7 @@ const facultyData = [
     if (cancelBtn) cancelBtn.addEventListener('click', closeModal);
 
     if (submitBtn) {
-        submitBtn.addEventListener('click', () => {
+        submitBtn.addEventListener('click', async () => {
             const text = reflectionText.value.trim();
             const author = reflectionAuthor.value.trim();
             
@@ -594,6 +600,31 @@ const facultyData = [
         v.addEventListener('mouseenter', () => { v.muted = false; });
         v.addEventListener('mouseleave', () => { v.muted = true; });
     });
+
+    // 7. Mobile Menu Toggle
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = document.querySelectorAll('#nav-menu ul li a');
+
+    if (mobileMenuToggle && navMenu) {
+        mobileMenuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            if (navMenu.classList.contains('active')) {
+                icon.className = 'fas fa-times';
+            } else {
+                icon.className = 'fas fa-bars';
+            }
+        });
+
+        // Close menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                mobileMenuToggle.querySelector('i').className = 'fas fa-bars';
+            });
+        });
+    }
 
     // 5. Initial Call
     fetchNotes();

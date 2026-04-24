@@ -11,6 +11,7 @@ const EXCEL_FILE = path.join(__dirname, 'reflections.xlsx');
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname)));
 
 // Initialize Excel file if it doesn't exist
 if (!fs.existsSync(EXCEL_FILE)) {
