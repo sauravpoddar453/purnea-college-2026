@@ -395,12 +395,6 @@ const facultyData = [
 
 
 
-
-
-
-
-    let allStudents = studentData;
-
     function initYearbook(filter = '') {
         const normalizedFilter = filter.toLowerCase();
         const filteredStudents = studentData.filter(s => 
@@ -594,12 +588,6 @@ const facultyData = [
         });
     });
 
-    // 6. Video Hover Sound Logic
-    const videos = document.querySelectorAll('.video-item video');
-    videos.forEach(v => {
-        v.addEventListener('mouseenter', () => { v.muted = false; });
-        v.addEventListener('mouseleave', () => { v.muted = true; });
-    });
 
     // 7. Mobile Menu Toggle
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
@@ -626,15 +614,30 @@ const facultyData = [
         });
     }
 
+    // 8. Background Music Controller Integration
+    const musicBtn = document.getElementById('music-toggle');
+    if (musicBtn) {
+        musicBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleMusic();
+        });
+    }
+
+    const interactionEvents = ['click', 'mousedown', 'touchstart', 'keydown'];
+    interactionEvents.forEach(evt => {
+        document.addEventListener(evt, () => {
+            if (!musicStarted) igniteMusic();
+        }, { once: true });
+    });
+    
+    setTimeout(window.updateMusicUI, 1000);
+
     // 5. Initial Call
     fetchNotes();
     initYearbook();
 });
 
-// ---------------------------------------------------------
-// BACKGROUND MUSIC CONTROLLER (YouTube API Integration)
-// ---------------------------------------------------------
-
+// Global Music Controller Functions
 window.updateMusicUI = function() {
     const btn = document.getElementById('music-toggle');
     if (!btn) return;
@@ -651,7 +654,6 @@ window.updateMusicUI = function() {
 
 function toggleMusic() {
     if (!player || typeof player.getPlayerState !== 'function') return;
-    
     const state = player.getPlayerState();
     if (state === 1) { // Playing
         player.pauseVideo();
@@ -667,7 +669,6 @@ function toggleMusic() {
 
 function igniteMusic() {
     if (musicStarted || !player) return;
-    
     try {
         if (typeof player.unMute === 'function') {
             player.unMute();
@@ -683,29 +684,3 @@ function igniteMusic() {
         setTimeout(igniteMusic, 200);
     }
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    const musicBtn = document.getElementById('music-toggle');
-    if (musicBtn) {
-        musicBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleMusic();
-        });
-    }
-
-    // Attempt to ignite on initial interaction (Browser Autoplay Requirement)
-    const interactionEvents = ['click', 'mousedown', 'touchstart', 'keydown'];
-    interactionEvents.forEach(evt => {
-        document.addEventListener(evt, () => {
-            if (!musicStarted) igniteMusic();
-        }, { once: true });
-    });
-    
-    // Initial UI Sync
-    setTimeout(window.updateMusicUI, 1000);
-});
-
-
-
-
-
